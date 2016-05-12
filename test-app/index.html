@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>ng-memory-tracker-test-app</title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <script type="text/javascript">
+      angular.module('testApp', [])
+      .controller('TestCtrl', function() {
+        this.data = [];
+
+        this.allocateMemory = function() {
+          for (var i = 0; i < 1000000; i++) {
+            this.data.push(i);
+          }
+        };
+
+        this.freeMemory = function() {
+          // this.data = this.data.slice(Math.floor(this.data.length * 0.25));
+          this.data = [];
+        };
+      });
+    </script>
+  </head>
+  <body ng-app="testApp">
+    <div ng-controller="TestCtrl as ctrl">
+      <div id="array-length">{{ ctrl.data.length }}</div>
+      <button ng-click="ctrl.allocateMemory()">Allocate</buton>
+      <button ng-click="ctrl.freeMemory()">Free</button>
+    </div>
+  </body>
+</html>
